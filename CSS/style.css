@@ -1,0 +1,26 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+body{
+background: black url(images/food.jpg) no-repeat;
+  height: 100vh; 
+  background-position: center;
+  background-size: cover;
+                
+}
+
+
+#box{
+    width:600px;
+    height:800px;
+    padding:0;
+    margin: auto;
+    background:	white;
+    opacity: 0.8;
+    margin-top:50px;
+    border-radius: 25px;
+    box-shadow: -5px 5px 10px rgba(136,136,136,0.6);
+    
+}
