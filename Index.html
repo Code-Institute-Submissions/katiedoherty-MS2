@@ -26,38 +26,48 @@
 <body>
    
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12">
     <div class= "box">
+        <div class="row">
+        <div class="col-sm-12">
         <div class="logo"></div>
+        </div></div>
+        <div class="row">
+            <div class="col-md-12">
         <h2 class="title">FIND A RESTAURANT NEAR YOU</h2>
-         <form>
-        <div class="form">
+    </div></div>
         
-<div class="form-group">
     <div class="row">
         <div class="col-md-6">
         <h3 class="location">Your Location</h3>
     </div>
         <div class="col-md-6">
+            <form>
+                <div class="form">
+                    <div class="form-group">
     <input type="text" class="form-control" id="Location" required>
     </div>
     </div>
+    </form>
+    </div>
+    </div>
+
+    <!--What Are You Looking For Question-->
     <div class="row question">
         <div class="col-md-12">
     <h3 class="lookingfor">What Are You Looking For?</h3>
-    </div>
+    </div></div>
+
+    <!--First set of Checkboxes-->
     <div class="row checkboxes">
        <div class="col-md-12">
-           <!-- Default checkbox -->
 <div class="form-check">
   <input
     class="form-check-input"
     type="checkbox"
     value=""
-    id="flexCheckDefault"
+    id="breakfast"
   />
-  <label class="form-check-label" for="flexCheckDefault">
+  <label class="form-check-label" for="breakfast">
     Breakfast
   </label>
 </div>
@@ -68,10 +78,10 @@
     class="form-check-input"
     type="checkbox"
     value=""
-    id="flexCheckChecked"
-    checked
+    id="lunch"
+    
   />
-  <label class="form-check-label" for="flexCheckChecked">
+  <label class="form-check-label" for="lunch">
     Lunch
   </label>
 </div>
@@ -80,22 +90,83 @@
     class="form-check-input"
     type="checkbox"
     value=""
-    id="flexChecked"
+    id="dinner"
   />
-  <label class="form-check-label" for="flexCheckDefault">
+  <label class="form-check-label" for="dinner">
     Dinner
+  </label>
+</div>
+
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value=""
+    id="SelectAll"
+  />
+  <label class="form-check-label" for="SelectAll">
+    Select All
   </label>
 </div>
        </div>
     </div>
-    </div>
-    </div>
+    
+    <!--Are You Ordering in or Eating Out Question-->
+    <div class="row lookingfor">
+        <div class="col-md-12">
+            <h3>Are you ordering in or eating out?</h3>
         </div>
-    </form>
-        </div>
+    </div>
+
+    <!--second set of checkboxes-->
+      <div class="row checkboxes">
+       <div class="col-md-12">
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value=""
+    id="eatingout"
+  />
+  <label class="form-check-label" for="eatingout">
+    Eating Out
+  </label>
+</div>
+
+
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value=""
+    id="eatingin"
+  />
+  <label class="form-check-label" for="eatingin">
+    Eating In
+  </label>
+</div>
+
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    value=""
+    id="both"
+  />
+  <label class="form-check-label" for="both">
+    Both
+  </label>
+</div>
+</div>
+      </div>
+<!--submit button-->
+<div class="row bluebutton">
+    <div class="col-md-12">
+<button type="button" class="btn btn-primary">Search</button>
+</div>
+</div>
+
     </div>
     </div>
-    </div>
-   
 </body>
 </html>

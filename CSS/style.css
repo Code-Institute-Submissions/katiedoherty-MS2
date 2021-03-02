@@ -33,33 +33,52 @@ height:200px;
 margin:auto;
 background-position: center;
 background-repeat: no-repeat;
+margin-top:50px;
 }
 
+/*Find a Restaurant Near You Heading*/
 .title{
     text-align:center;
 }
 
+/*Your Location Heading and form placeholder*/
 .location{
+    margin-top: 15px;
     text-align:right;
 }
 
+.form{
+    margin-top:15px;
+    float:left;
+}
+
 .form-group{
-    max-width:90%;
-    margin-top:30px;
+    max-width:100%;
+   
 }
-
-.lookingfor{
-    margin-left:52px;
-    margin-top:20px;
-}
-
+ /*final two questions with the checkboxes*/
 .question{
-    margin:auto;
+    text-align:center;
 }
 
 .checkboxes{
-    margin-left:-50%;
-    margin-top:12%;
+    margin-left:50%;
+}
+
+.lookingfor{
+    text-align:center;
+    margin-top:10px;
+}
+
+/*submit button*/
+.bluebutton{
+    text-align:center;
+    margin-top:20px;
+}
+
+.btn{
+    height:50px;
+    width:200px;
 }
 
 
