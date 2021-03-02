@@ -6,9 +6,9 @@
 body{
 background: black url(images/food.jpg) no-repeat;
   height: 100vh; 
-  background-position: center;
+  background-position: center center;
   background-size: cover;
-                
+  max-width:100%;             
 }
 
 /*white box in the center*/
@@ -62,7 +62,7 @@ margin-top:50px;
 }
 
 .checkboxes{
-    margin-left:50%;
+    margin-left:40%;
 }
 
 .lookingfor{
@@ -81,5 +81,14 @@ margin-top:50px;
     width:200px;
 }
 
+@media (max-width:764px){
+  .location{
+      text-align:center;
+  }
+.mobileform{
+margin-left:34%;
+}
 
+
+}
 
