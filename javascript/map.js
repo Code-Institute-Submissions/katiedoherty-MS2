@@ -1,3 +1,5 @@
+  let marker;
+  
   function initMap(){
             var map = new google.maps.Map(document.getElementById("map-canvas"),{
                 zoom:7,
@@ -7,23 +9,30 @@
                 }
             });
 
-            if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setCenter(pos);
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    }
+           
+             if (navigator.geolocation){
 
-        }
+            navigator.geolocation.getCurrentPosition(function(p){
+           marker = new google.maps.Marker({
+                map,
+                draggable: false,
+                animation: google.maps.Animation.DROP,
+                position: {
+            lat: p.coords.latitude,
+            lng: p.coords.longitude,
+          },});
+            const contentString= `<p>You Are Here</p>`
+            const infowindow = new google.maps.InfoWindow({
+            content: contentString,
+          });
+            map,
+  
+  console.log(
+    infowindow.open(map, marker)
+  );
+            });}
 
+             }
+
+       
+    
