@@ -74,21 +74,19 @@
                 service.nearbySearch(request, callback);
              }
 
-              function createMarker(){
-                 
-                new google.maps.Marker({
-                map,
-                draggable: false,
-                animation: google.maps.Animation.DROP,
-                
-                position: pos.request.callback});
-             }
+              
 
              function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) 
+    for (var i = 0; i < results.length; i++) {
+        const placem = new google.maps.Marker({
+            position: results[i].position,
+            map:map,
+        })
+    }
+    
     {
-     createMarker(results[i]);
+     callback(placem)
     }
   
   }
