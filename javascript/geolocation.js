@@ -4,7 +4,7 @@ let map;
 let service;
 let pos;
 let geomaker;
-
+let infowindow;
 
 //This is the function that renders the map.
 function initMap() {
@@ -45,10 +45,10 @@ map.setCenter(pos);
             getRestaurants(pos);
 
 // These variables create the infowindow and content written in the function.
+
             const contentString = `<p>You Are Here</p>`;
-            const infowindow = new google.maps.InfoWindow({
-                content: contentString,
-            });
+            infowindow = new google.maps.InfoWindow();
+            infowindow.setContent('You are Here');
             console.log(
             infowindow.open(map, marker)
             );
@@ -107,12 +107,11 @@ google.maps.event.addListener(everymarker, 'click', () => {
 
 function showDetails(placeResult, everymarker, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        let placeInfowindow = new google.maps.InfoWindow();
         let rating = "None";
         if (placeResult.rating) rating = placeResult.rating;
-        placeInfowindow.setContent('<div><strong>' + placeResult.name +
+        infowindow.setContent('<div><strong>' + placeResult.name +
           '</strong><br>' + 'Rating: ' + rating + '</div>');
-        placeInfowindow.open(everymarker.map, everymarker);
+        infowindow.open(everymarker.map, everymarker);
       } else {
         console.log('showDetails failed: ' + status);
       }
@@ -128,6 +127,9 @@ function callback(results, status) {
     }
   }
 }
+
+
+    
 
 
  
