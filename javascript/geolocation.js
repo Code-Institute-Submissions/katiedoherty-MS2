@@ -6,7 +6,7 @@ let pos;
 let geomaker;
 
 
-
+//This is the function that renders the map.
 function initMap() {
 
 
@@ -14,11 +14,11 @@ function initMap() {
 
 
     map = new google.maps.Map(document.getElementById("map-canvas"), {
-        zoom: 8,
+        zoom: 17,
         center: latmap
     });
 
-
+//This is teh function that gets the users location
     if (navigator.geolocation) {
 
         navigator.geolocation.getCurrentPosition(function(p) {
@@ -27,7 +27,11 @@ function initMap() {
                 lat: p.coords.latitude,
                 lng: p.coords.longitude,
             };
-console.log(p);
+
+            //This function centers the map on the users location
+map.setCenter(pos);
+
+//This variable creates the users location marker with the markers animation.
             marker = new google.maps.Marker({
                 map,
                 draggable: false,
@@ -40,12 +44,14 @@ console.log(p);
             marker.setAnimation(google.maps.Animation.BOUNCE);
             getRestaurants(pos);
 
-
+// These variables create the infowindow and content written in the function.
             const contentString = `<p>You Are Here</p>`;
             const infowindow = new google.maps.InfoWindow({
                 content: contentString,
             });
-
+            console.log(
+            infowindow.open(map, marker)
+            );
 
 
         });
@@ -55,7 +61,7 @@ console.log(p);
 
 
 }
-
+//This function gathers the nearby restaurants to the users location.
 function getRestaurants(pos) {
     var pyrmont = new google.maps.LatLng(pos.lat, pos.lng);
     var request = {
@@ -63,23 +69,57 @@ function getRestaurants(pos) {
         radius: 500,
         type: ["restaurant"]
     };
-
+//This calls on the Places api to search for places.
     service = new google.maps.places.PlacesService(map);
+    //This function calls all the services that were searched and only returns the nearby restaurants.
     service.nearbySearch(request, callback);
 }
 
+//This function creates the markers for the nearby places to the user.
 function createMarker(place){
     
+     //this variable gets the latitude and longitude of the restaurants returned 
      geomarker = {
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng(),
             };
-    new google.maps.Marker({
+
+            //this positions the markers on the co-ordinates returned.
+    var everymarker= new google.maps.Marker({
         position: geomarker,
         map: map});
+        //this will print the markers on the map.
 console.log(place);
+
+//create an event for a person clicks on a marker and an infowindow of information is returned.
+google.maps.event.addListener(everymarker, 'click', () => {
+    let request = {
+    placeId: place.place_id,
+    fields: ['name', 'formatted_address', 'geometry', 'rating',
+        'website', 'photos']
+    };
+
+    
+    service.getDetails(request, (placeResult, status) => {
+    showDetails(placeResult, everymarker, status)
+    });
+});
+
+function showDetails(placeResult, everymarker, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        let placeInfowindow = new google.maps.InfoWindow();
+        let rating = "None";
+        if (placeResult.rating) rating = placeResult.rating;
+        placeInfowindow.setContent('<div><strong>' + placeResult.name +
+          '</strong><br>' + 'Rating: ' + rating + '</div>');
+        placeInfowindow.open(everymarker.map, everymarker);
+      } else {
+        console.log('showDetails failed: ' + status);
+      }
+    }
 }
 
+//This function handles the results returned and the status of the data returned.
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) 

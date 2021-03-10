@@ -91,4 +91,17 @@ margin-left:34%;
 
 
 }
+/*#panel {
+    height: null;
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    z-index: 1;
+    overflow-x: hidden;
+    transition: all .2s ease-out;
+}
+.open {
+    height: 250px;
+}*/
+
 
