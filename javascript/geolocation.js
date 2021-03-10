@@ -45,10 +45,6 @@ console.log(p);
             const infowindow = new google.maps.InfoWindow({
                 content: contentString,
             });
-            // map;
-
-            console.log(infowindow.open(map, marker));
-
 
 
 
