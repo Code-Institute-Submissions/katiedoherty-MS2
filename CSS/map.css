@@ -34,7 +34,7 @@
     height: null;
     width: 100%;
     bottom:0;
-    background-color: white;
+    background-color: black;
     position: fixed;
     z-index: 1;
     overflow-x: hidden;
@@ -60,4 +60,8 @@
     height:200px;
     margin:0;
     padding:0;
+}
+
+.closepanel{
+    height:null;
 }

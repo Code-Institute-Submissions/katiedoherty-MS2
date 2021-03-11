@@ -56,15 +56,12 @@ map.setCenter(pos);
             console.log(
             infowindow.open(map, marker)
             );
-
-
         });
-
-
     }
-
-
+     
 }
+
+
 //This function gathers the nearby restaurants to the users location.
 function getRestaurants(pos) {
     var pyrmont = new google.maps.LatLng(pos.lat, pos.lng);
@@ -97,9 +94,12 @@ console.log(place);
 
 //create an event for a person clicks on a marker and an infowindow of information is returned.
 google.maps.event.addListener(everymarker, 'click', () => {
+    $("#panel").show();
     infoPane.classList.add("open");
     placedetails.classList.add("details");
     getdirections.classList.add("directions");
+    
+    //returned information on the infowindow
     let request = {
     placeId: place.place_id,
     fields: ['name', 'formatted_address', 'geometry', 'rating',
@@ -113,6 +113,16 @@ google.maps.event.addListener(everymarker, 'click', () => {
 
 });
 
+new google.maps.event.addListener(map, 'click', function() {
+    infowindow.close();
+    $("#panel").hide();
+  });
+
+  new google.maps.event.addListener(infowindow, 'close', function() {
+      $("#panel").hide();
+  });
+
+
 //This is the details I want returned on the infowindow.
 function showDetails(placeResult, everymarker, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -125,6 +135,8 @@ function showDetails(placeResult, everymarker, status) {
         console.log('showDetails failed: ' + status);
       }
     }
+
+    
 }
 
 //This function handles the results returned and the status of the data returned.
@@ -136,6 +148,13 @@ function callback(results, status) {
     }
   }
 }
+
+    
+
+
+
+
+    
 
 
   
