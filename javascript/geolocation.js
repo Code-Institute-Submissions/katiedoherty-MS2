@@ -5,11 +5,15 @@ let service;
 let pos;
 let geomaker;
 let infowindow;
+let infopane;
+let placedetails;
+let getdirections;
 
 //This is the function that renders the map.
 function initMap() {
-
-
+    infoPane = document.getElementById('panel');
+    placedetails=document.getElementById("placedetails")
+    getdirections=document.getElementById("getdirections")
     var latmap = new google.maps.LatLng(53.41291, -8.24389);
 
 
@@ -93,6 +97,9 @@ console.log(place);
 
 //create an event for a person clicks on a marker and an infowindow of information is returned.
 google.maps.event.addListener(everymarker, 'click', () => {
+    infoPane.classList.add("open");
+    placedetails.classList.add("details");
+    getdirections.classList.add("directions");
     let request = {
     placeId: place.place_id,
     fields: ['name', 'formatted_address', 'geometry', 'rating',
@@ -103,8 +110,10 @@ google.maps.event.addListener(everymarker, 'click', () => {
     service.getDetails(request, (placeResult, status) => {
     showDetails(placeResult, everymarker, status)
     });
+
 });
 
+//This is the details I want returned on the infowindow.
 function showDetails(placeResult, everymarker, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         let rating = "None";
@@ -127,6 +136,13 @@ function callback(results, status) {
     }
   }
 }
+
+
+  
+
+
+
+   
 
 
     
