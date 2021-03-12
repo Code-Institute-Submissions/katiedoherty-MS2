@@ -97,7 +97,16 @@ google.maps.event.addListener(everymarker, 'click', () => {
     $("#panel").show();
     infoPane.classList.add("open");
     placedetails.classList.add("details");
-    getdirections.classList.add("directions");
+    
+    var element3 = document.getElementById("getdirections");
+    element3.type = "button";
+    element3.name = "add";
+    element3.value="Remove";
+    element3.className="btn btn-primary btn-lg";
+    element3.textContent= "Get Directions"
+    element3.classList.add("directions");
+    
+    
     
     //returned information on the infowindow
     let request = {

@@ -34,7 +34,7 @@
     height: null;
     width: 100%;
     bottom:0;
-    background-color: black;
+    background-color: white;
     position: fixed;
     z-index: 1;
     overflow-x: hidden;
@@ -47,21 +47,24 @@
 
 
 .details{
-    background-color: blue;
+    
     width:100%;
     height:200px;
     margin:0;
     padding:0;
 }
 
-.directions{
-    background-color: pink;
-    width: 100%;
-    height:200px;
-    margin:0;
-    padding:0;
-}
+
 
 .closepanel{
     height:null;
 }
+
+/* Get Directions Button*/
+.directions{
+    margin:auto;
+    width:100%;
+    font-size:50px;
+    margin-top:13%;
+}
+
