@@ -6,13 +6,13 @@ let pos;
 let geomaker;
 let infowindow;
 let infopane;
-let placedetails;
+let mapdetails;
 let getdirections;
 
 //This is the function that renders the map.
 function initMap() {
     infoPane = document.getElementById('panel');
-    placedetails=document.getElementById("placedetails")
+    mapdetails=document.getElementById("placedetails")
     getdirections=document.getElementById("getdirections")
     var latmap = new google.maps.LatLng(53.41291, -8.24389);
 
@@ -92,12 +92,14 @@ function createMarker(place){
         //this will print the markers on the map.
 console.log(place);
 
-//create an event for a person clicks on a marker and an infowindow of information is returned.
+//create a click event for a person and get an infowindow and bottom panel of information returned.
 google.maps.event.addListener(everymarker, 'click', () => {
+   
     $("#panel").show();
     infoPane.classList.add("open");
     placedetails.classList.add("details");
     
+    //the get directions button.
     var element3 = document.getElementById("getdirections");
     element3.type = "button";
     element3.name = "add";
@@ -106,7 +108,16 @@ google.maps.event.addListener(everymarker, 'click', () => {
     element3.textContent= "Get Directions"
     element3.classList.add("directions");
     
+    //return the first photo of the place being clicked on in the panel.
     
+        let photos="None";
+    if(place.photos){firstPhoto = place.photos[0];
+    let photo = document.createElement('img');
+    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 500});
+   mapdetails.appendChild(photo);}else {
+        console.log('showDetails failed: ' + status);
+   }
+
     
     //returned information on the infowindow
     let request = {
@@ -118,6 +129,7 @@ google.maps.event.addListener(everymarker, 'click', () => {
     
     service.getDetails(request, (placeResult, status) => {
     showDetails(placeResult, everymarker, status)
+    
     });
 
 });
@@ -125,12 +137,10 @@ google.maps.event.addListener(everymarker, 'click', () => {
 new google.maps.event.addListener(map, 'click', function() {
     infowindow.close();
     $("#panel").hide();
+    mapdetails.innerHTML="";
   });
 
-  new google.maps.event.addListener(infowindow, 'close', function() {
-      $("#panel").hide();
-  });
-
+}
 
 //This is the details I want returned on the infowindow.
 function showDetails(placeResult, everymarker, status) {
@@ -146,7 +156,7 @@ function showDetails(placeResult, everymarker, status) {
     }
 
     
-}
+
 
 //This function handles the results returned and the status of the data returned.
 function callback(results, status) {
@@ -157,6 +167,7 @@ function callback(results, status) {
     }
   }
 }
+
 
     
 
