@@ -9,8 +9,10 @@ let infopane;
 let mapdetails;
 let getdirections;
 
+
 //This is the function that renders the map.
 function initMap() {
+  
     infoPane = document.getElementById('panel');
     mapdetails=document.getElementById("placedetails")
     getdirections=document.getElementById("getdirections")
@@ -28,8 +30,10 @@ function initMap() {
         navigator.geolocation.getCurrentPosition(function(p) {
 
             pos = {
-                lat: p.coords.latitude,
-                lng: p.coords.longitude,
+                //lat: p.coords.latitude,
+                //lng: p.coords.longitude,
+                lat:53.350140,
+                lng:-6.266155
             };
 
             //This function centers the map on the users location
@@ -93,11 +97,11 @@ function createMarker(place){
 console.log(place);
 
 //create a click event for a person and get an infowindow and bottom panel of information returned.
-google.maps.event.addListener(everymarker, 'click', () => {
+new google.maps.event.addListener(everymarker, 'click', () => {
    
     $("#panel").show();
     infoPane.classList.add("open");
-    placedetails.classList.add("details");
+  
     
     //the get directions button.
     var element3 = document.getElementById("getdirections");
@@ -108,15 +112,12 @@ google.maps.event.addListener(everymarker, 'click', () => {
     element3.textContent= "Get Directions"
     element3.classList.add("directions");
     
-    //return the first photo of the place being clicked on in the panel.
-    
-        let photos="None";
-    if(place.photos){firstPhoto = place.photos[0];
-    let photo = document.createElement('img');
-    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 500});
-   mapdetails.appendChild(photo);}else {
-        console.log('showDetails failed: ' + status);
-   }
+    //gets rid of the last child in the mapdetails id when another marker is selected.
+   
+ if (mapdetails.firstChild) {
+    mapdetails.removeChild(mapdetails.firstChild);
+    }
+    showPhotos(place);
 
     
     //returned information on the infowindow
@@ -168,8 +169,55 @@ function callback(results, status) {
   }
 }
 
+//returns photos when marker is clicked.
+function showPhotos(place){
+    var cartDiv = document.createElement('div');
+    mapdetails.appendChild(cartDiv);
 
+   
+
+         let photos="None";
+    if(place.photos){firstPhoto = place.photos[0];
+    let photo = document.createElement('img');
+    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 500});
+   cartDiv.appendChild(photo);}else {
+        console.log('showDetails failed: ' + status);
+   } 
+
+    let name = document.createElement('h1');
+    name.textContent = place.name;
+    cartDiv.appendChild(name);
+    if (place.rating != null) {
+    let rating = document.createElement('p');
+    rating.textContent = `Rating: ${place.rating} \u272e`;
+    cartDiv.appendChild(rating);
+    }
+    if(place.formatted_address){
+   let address = document.createElement('p');
+    address.textContent = place.formatted_address;
+    cartDiv.appendChild(address);}/*else{
+        let vicinity= document.createElement('p');
+        vicinity.textContent= place.vicinity
+        cartDiv.appendChild(vicinity);
+    }*/
+    if (place.website) {
+    let websitePara = document.createElement('p');
+    let websiteLink = document.createElement('a');
+    let websiteUrl = document.createTextNode(place.website);
+    websiteLink.appendChild(websiteUrl);
+    websiteLink.title = place.website;
+    websiteLink.href = place.website;
+    websitePara.appendChild(websiteLink);
+    cartDiv.appendChild(websitePara);
+    }
+}
     
+ var placesRequest = $.ajax({
+  type: "GET",
+  url: "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_phone_number&key=AIzaSyDfDJ2VZ2DHqYRtMyuUgOz1u052Vbwy_wI",
+success:function(result){console.log(result)},
+});
+
 
 
 
