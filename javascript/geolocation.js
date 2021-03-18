@@ -174,8 +174,22 @@ function showPhotos(place){
     var cartDiv = document.createElement('div');
     mapdetails.appendChild(cartDiv);
 
-   
 
+// code to access the place detials information
+
+    var request = new XMLHttpRequest();
+     request.onreadystatechange = function() {
+        if (request.readyState == XMLHttpRequest.DONE) {
+            console.log(this.responseText);
+        }}
+    request.open("GET", "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id="+place.place_id+"&fields=website,formatted_phone_number,formatted_address&key=AIzaSyDfDJ2VZ2DHqYRtMyuUgOz1u052Vbwy_wI");
+    request.send();
+   
+    
+
+
+
+// returns the information in the bottom panel bar that pops up when marker is clicked.
          let photos="None";
     if(place.photos){firstPhoto = place.photos[0];
     let photo = document.createElement('img');
@@ -212,11 +226,7 @@ function showPhotos(place){
     }
 }
     
- var placesRequest = $.ajax({
-  type: "GET",
-  url: "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_phone_number&key=AIzaSyDfDJ2VZ2DHqYRtMyuUgOz1u052Vbwy_wI",
-success:function(result){console.log(result)},
-});
+
 
 
 
