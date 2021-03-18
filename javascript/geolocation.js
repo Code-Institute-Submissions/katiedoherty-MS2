@@ -174,21 +174,7 @@ function showPhotos(place){
     var cartDiv = document.createElement('div');
     mapdetails.appendChild(cartDiv);
 
-
-// code to access the place detials information
-
-    var request = new XMLHttpRequest();
-     request.onreadystatechange = function() {
-        if (request.readyState == XMLHttpRequest.DONE) {
-            console.log(this.responseText);
-        }}
-    request.open("GET", "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id="+place.place_id+"&fields=website,formatted_phone_number,formatted_address&key=AIzaSyDfDJ2VZ2DHqYRtMyuUgOz1u052Vbwy_wI");
-    request.send();
-   
-    
-
-
-
+ 
 // returns the information in the bottom panel bar that pops up when marker is clicked.
          let photos="None";
     if(place.photos){firstPhoto = place.photos[0];
@@ -206,25 +192,17 @@ function showPhotos(place){
     rating.textContent = `Rating: ${place.rating} \u272e`;
     cartDiv.appendChild(rating);
     }
-    if(place.formatted_address){
+    if(place.vicinity){
    let address = document.createElement('p');
-    address.textContent = place.formatted_address;
-    cartDiv.appendChild(address);}/*else{
-        let vicinity= document.createElement('p');
-        vicinity.textContent= place.vicinity
-        cartDiv.appendChild(vicinity);
-    }*/
-    if (place.website) {
-    let websitePara = document.createElement('p');
-    let websiteLink = document.createElement('a');
-    let websiteUrl = document.createTextNode(place.website);
-    websiteLink.appendChild(websiteUrl);
-    websiteLink.title = place.website;
-    websiteLink.href = place.website;
-    websitePara.appendChild(websiteLink);
-    cartDiv.appendChild(websitePara);
+    address.textContent = place.vicinity;
+    cartDiv.appendChild(address);}
+    if(place.opening_now){
+        let openinghours=document.createElement("p");
+        openinghours.textContent = place.opening_now;
+    cartDiv.appendChild(openinghours);
     }
 }
+
     
 
 
