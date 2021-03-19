@@ -25,7 +25,7 @@ function initMap() {
         center: latmap
     });
 
-//This is teh function that gets the users location
+//This is the function that gets the users location
     if (navigator.geolocation) {
 
         navigator.geolocation.getCurrentPosition(function(p) {
@@ -116,7 +116,7 @@ new google.maps.event.addListener(everymarker, 'click', () => {
       window.open("https://www.google.com/maps/dir/?api=1&travelmode=walking&layer=traffic&destination="+geomarker+"");
   }
    
-    //gets rid of the last child in the mapdetails id when another marker is selected.
+    //gets rid of the last child in the mapdetails and writtendetails variables when another marker is selected.
    
  if (mapdetails.firstChild) {
     mapdetails.removeChild(mapdetails.firstChild);
@@ -144,6 +144,7 @@ new google.maps.event.addListener(everymarker, 'click', () => {
 
 });
 
+//when the user clicks the map, the bottom panel and infowindow will dissapear.
 new google.maps.event.addListener(map, 'click', function() {
     infowindow.close();
     $("#panel").hide();
