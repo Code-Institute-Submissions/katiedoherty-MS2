@@ -7,12 +7,13 @@ let geomaker;
 let infowindow;
 let infopane;
 let mapdetails;
-let getdirections;
+let writtendetails;
 
 
 //This is the function that renders the map.
 function initMap() {
-  
+
+    writtendetails= document.getElementById("mapwrittendetails");
     infoPane = document.getElementById('panel');
     mapdetails=document.getElementById("placedetails")
     getdirections=document.getElementById("getdirections")
@@ -110,21 +111,29 @@ new google.maps.event.addListener(everymarker, 'click', () => {
     element3.value="Remove";
     element3.className="btn btn-primary btn-lg";
     element3.textContent= "Get Directions"
-    element3.classList.add("directions");
-    
+   element3.classList.add("directions");
+  element3.onclick= function(){
+      window.open("https://www.google.com/maps/dir/?api=1&travelmode=walking&layer=traffic&destination="+geomarker+"");
+  }
+   
     //gets rid of the last child in the mapdetails id when another marker is selected.
    
  if (mapdetails.firstChild) {
     mapdetails.removeChild(mapdetails.firstChild);
     }
     showPhotos(place);
+    if (writtendetails.firstChild){
+        writtendetails.removeChild(writtendetails.firstChild)
+    }
+    Details(place);
+    
 
     
     //returned information on the infowindow
     let request = {
     placeId: place.place_id,
-    fields: ['name', 'formatted_address', 'geometry', 'rating',
-        'website', 'photos']
+    fields: ['name', 'rating',
+         'photos']
     };
 
     
@@ -139,7 +148,10 @@ new google.maps.event.addListener(map, 'click', function() {
     infowindow.close();
     $("#panel").hide();
     mapdetails.innerHTML="";
+    writtendetails.innerHTML="";
   });
+
+   
 
 }
 
@@ -173,35 +185,43 @@ function callback(results, status) {
 function showPhotos(place){
     var cartDiv = document.createElement('div');
     mapdetails.appendChild(cartDiv);
+  
 
  
 // returns the information in the bottom panel bar that pops up when marker is clicked.
          let photos="None";
     if(place.photos){firstPhoto = place.photos[0];
     let photo = document.createElement('img');
-    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 500});
+    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 300});
    cartDiv.appendChild(photo);}else {
         console.log('showDetails failed: ' + status);
-   } 
+   } }
+
+   //returns all the written details in the bottom panel.
+   function Details(place){
+  var details = document.createElement('div');
+    writtendetails.appendChild(details);
 
     let name = document.createElement('h1');
     name.textContent = place.name;
-    cartDiv.appendChild(name);
+    details.appendChild(name);
     if (place.rating != null) {
     let rating = document.createElement('p');
     rating.textContent = `Rating: ${place.rating} \u272e`;
-    cartDiv.appendChild(rating);
+    details.appendChild(rating);
     }
     if(place.vicinity){
    let address = document.createElement('p');
     address.textContent = place.vicinity;
-    cartDiv.appendChild(address);}
+    details.appendChild(address);}
     if(place.opening_now){
         let openinghours=document.createElement("p");
         openinghours.textContent = place.opening_now;
-    cartDiv.appendChild(openinghours);
-    }
-}
+    details.appendChild(openinghours);
+    }}
+
+
+
 
     
 
