@@ -4,21 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-      crossorigin="anonymous"
-    ></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/b201075f35.js" crossorigin="anonymous"></script>
     <link rel="stylesheet"  type="text/css" href="CSS/style.css" />
     <title>Fresh Food</title>
@@ -33,146 +19,36 @@
         </div></div>
         <div class="row">
             <div class="col-md-12">
-        <h2 class="title">FIND A RESTAURANT NEAR YOU</h2>
+        <h2 class="title">FIND THE BEST PLACES TO EAT AND DRINK NEAR YOU</h2>
     </div></div>
-        
-    <div class="row">
-        
-        <div class="col-md-6">
-        <h3 class="location">Your Location</h3>
-    </div>
-        <div class="col-md-6">
-            
-            <form>
-                <div class="mobileform">
-                <div class="form">
-                    <div class="form-group">
-    <input type="text" class="form-control" id="Location" required>
-    </div>
-    </div>
-</div>
-    </form>
-    </div>
-    </div>
     
 
-    <!--What Are You Looking For Question-->
-    <div class="row question">
-        <div class="col-md-12">
-    <h3 class="lookingfor">What Are You Looking For?</h3>
-    </div></div>
-
-    <!--First set of Checkboxes-->
-    <div class="row checkboxes">
-       <div class="col-md-12">
-<div class="form-check">
-  <input
-    class="form-check-input"
-    type="checkbox"
-    value=""
-    id="breakfast"
-  />
-  <label class="form-check-label" for="breakfast">
-    Breakfast
-  </label>
-</div>
-
-<!-- Checked checkbox -->
-<div class="form-check">
-  <input
-    class="form-check-input"
-    type="checkbox"
-    value=""
-    id="lunch"
-    
-  />
-  <label class="form-check-label" for="lunch">
-    Lunch
-  </label>
-</div>
-<div class="form-check">
-  <input
-    class="form-check-input"
-    type="checkbox"
-    value=""
-    id="dinner"
-  />
-  <label class="form-check-label" for="dinner">
-    Dinner
-  </label>
-</div>
-
-<div class="form-check">
-  <input
-    class="form-check-input"
-    type="checkbox"
-    value=""
-    id="SelectAll"
-  />
-  <label class="form-check-label" for="SelectAll">
-    Select All
-  </label>
-</div>
-       </div>
-    </div>
-    
-    <!--Are You Ordering in or Eating Out Question-->
-    <div class="row lookingfor">
-        <div class="col-md-12">
-            <h3>Are you ordering in or eating out?</h3>
-        </div>
-    </div>
-
-    <!--second set of checkboxes-->
-      <div class="row checkboxes">
-       <div class="col-md-12">
-<div class="form-check">
-  <input
-    class="form-check-input"
-    type="checkbox"
-    value=""
-    id="eatingout"
-  />
-  <label class="form-check-label" for="eatingout">
-    Eating Out
-  </label>
-</div>
-
-
-<div class="form-check">
-  <input
-    class="form-check-input"
-    type="checkbox"
-    value=""
-    id="eatingin"
-  />
-  <label class="form-check-label" for="eatingin">
-    Eating In
-  </label>
-</div>
-
-<div class="form-check">
-  <input
-    class="form-check-input"
-    type="checkbox"
-    value=""
-    id="both"
-  />
-  <label class="form-check-label" for="both">
-    Both
-  </label>
-</div>
-</div>
-      </div>
-<!--submit button-->
 <div class="row bluebutton">
     <div class="col-md-12">
-<button type="button" class="btn btn-primary">Search</button>
+        <a href="map.html">
+<button type="button" class="btn btn-primary" id="food" onclick="getRestaurants(pos);">Restaurants</button></a>
 </div>
 </div>
 
+<div class="row bluebutton">
+    <div class="col-md-12">
+        <a href="map.html">
+<button type="button" class="btn btn-primary" id="cafes" onclick="getCafes(pos);">Cafes</button></a>
+</div>
+</div>
+
+<div class="row bluebutton">
+    <div class="col-md-12">
+        <a href="map.html">
+<button type="button" class="btn btn-primary" id="pubs">Pubs</button></a>
+</div>
+</div>
     </div>
     </div>
-    
+<script src="javascript/geolocation.js"></script>
+      <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfDJ2VZ2DHqYRtMyuUgOz1u052Vbwy_wI&libraries=places&callback=initMap">
+</script>
+ 
 </body>
 </html>

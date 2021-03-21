@@ -10,8 +10,11 @@ let mapdetails;
 let writtendetails;
 
 
+
 //This is the function that renders the map.
-function initMap() {
+ new google.maps.event.addDomListener(window, 'load', initMap);
+ function initMap() {
+  GeoLoco();
 
     writtendetails= document.getElementById("mapwrittendetails");
     infoPane = document.getElementById('panel');
@@ -23,10 +26,10 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("map-canvas"), {
         zoom: 17,
         center: latmap
-    });
+    })};
 
 //This is the function that gets the users location
-    if (navigator.geolocation) {
+function GeoLoco(){if (navigator.geolocation) {
 
         navigator.geolocation.getCurrentPosition(function(p) {
 
@@ -51,9 +54,8 @@ map.setCenter(pos);
 
 
             marker.setAnimation(google.maps.Animation.BOUNCE);
-            getRestaurants(pos);
-
-// These variables create the infowindow and content written in the function.
+            
+            // These variables create the infowindow and content written in the function.
 
             const contentString = `<p>You Are Here</p>`;
             infowindow = new google.maps.InfoWindow();
@@ -61,25 +63,51 @@ map.setCenter(pos);
             console.log(
             infowindow.open(map, marker)
             );
+          getRestaurants(pos)
         });
+        
     }
-     
 }
+
+
 
 
 //This function gathers the nearby restaurants to the users location.
 function getRestaurants(pos) {
-    var pyrmont = new google.maps.LatLng(pos.lat, pos.lng);
+    
+     var pyrmont = new google.maps.LatLng(pos.lat, pos.lng);
     var request = {
         location: pyrmont,
         radius: 500,
         type: ["restaurant"]
     };
-//This calls on the Places api to search for places.
+
+    
+                   //This calls on the Places api to search for places.
     service = new google.maps.places.PlacesService(map);
     //This function calls all the services that were searched and only returns the nearby restaurants.
-    service.nearbySearch(request, callback);
-}
+     service.nearbySearch(request, callback);  
+    
+         }
+
+         //This function gathers the nearby Cafes to the users location.
+function getCafes(pos) {
+     var pyrmont = new google.maps.LatLng(pos.lat, pos.lng);
+    var request = {
+        location: pyrmont,
+        radius: 500,
+        type: ["cafe"]
+    };
+
+     
+                   //This calls on the Places api to search for places.
+    service = new google.maps.places.PlacesService(map);
+    //This function calls all the services that were searched and only returns the nearby Cafes.
+   service.nearbySearch(request, callback);  
+    
+         }
+        
+         
 
 //This function creates the markers for the nearby places to the user.
 function createMarker(place){
@@ -154,7 +182,7 @@ new google.maps.event.addListener(map, 'click', function() {
 
    
 
-}
+};
 
 //This is the details I want returned on the infowindow.
 function showDetails(placeResult, everymarker, status) {
@@ -221,6 +249,7 @@ function showPhotos(place){
     details.appendChild(openinghours);
     }}
 
+    
 
 
 
