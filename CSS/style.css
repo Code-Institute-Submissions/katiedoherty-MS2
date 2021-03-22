@@ -41,34 +41,7 @@ margin-top:50px;
     text-align:center;
 }
 
-/*Your Location Heading and form placeholder*/
-.location{
-    margin-top: 15px;
-    text-align:right;
-}
 
-.form{
-    margin-top:15px;
-    float:left;
-}
-
-.form-group{
-    max-width:100%;
-   
-}
- /*final two questions with the checkboxes*/
-.question{
-    text-align:center;
-}
-
-.checkboxes{
-    margin-left:40%;
-}
-
-.lookingfor{
-    text-align:center;
-    margin-top:10px;
-}
 
 /*submit button*/
 .bluebutton{

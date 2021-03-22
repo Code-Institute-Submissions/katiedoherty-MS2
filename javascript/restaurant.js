@@ -1,3 +1,4 @@
+
 //GEOLOCATION API
 let marker;
 let map;
@@ -13,9 +14,9 @@ let writtendetails;
 
 //This is the function that renders the map.
  new google.maps.event.addDomListener(window, 'load', initMap);
- function initMap() {
+function initMap() {
   GeoLoco();
-
+$("#panel").hide()
     writtendetails= document.getElementById("mapwrittendetails");
     infoPane = document.getElementById('panel');
     mapdetails=document.getElementById("placedetails")
@@ -24,7 +25,7 @@ let writtendetails;
 
 
     map = new google.maps.Map(document.getElementById("map-canvas"), {
-        zoom: 17,
+        zoom: 16,
         center: latmap
     })};
 
@@ -34,10 +35,9 @@ function GeoLoco(){if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(p) {
 
             pos = {
-                //lat: p.coords.latitude,
-                //lng: p.coords.longitude,
-                lat:53.350140,
-                lng:-6.266155
+                lat: p.coords.latitude,
+                lng: p.coords.longitude,
+                
             };
 
             //This function centers the map on the users location
@@ -89,24 +89,6 @@ function getRestaurants(pos) {
      service.nearbySearch(request, callback);  
     
          }
-
-         //This function gathers the nearby Cafes to the users location.
-function getCafes(pos) {
-     var pyrmont = new google.maps.LatLng(pos.lat, pos.lng);
-    var request = {
-        location: pyrmont,
-        radius: 500,
-        type: ["cafe"]
-    };
-
-     
-                   //This calls on the Places api to search for places.
-    service = new google.maps.places.PlacesService(map);
-    //This function calls all the services that were searched and only returns the nearby Cafes.
-   service.nearbySearch(request, callback);  
-    
-         }
-        
          
 
 //This function creates the markers for the nearby places to the user.
@@ -127,21 +109,26 @@ console.log(place);
 
 //create a click event for a person and get an infowindow and bottom panel of information returned.
 new google.maps.event.addListener(everymarker, 'click', () => {
-   
+    map.setZoom(19);
+            map.panTo(everymarker.position);
     $("#panel").show();
     infoPane.classList.add("open");
+     $("#directionbutton").show();
   
     
     //the get directions button.
+   
+   
     var element3 = document.getElementById("getdirections");
     element3.type = "button";
     element3.name = "add";
     element3.value="Remove";
     element3.className="btn btn-primary btn-lg";
-    element3.textContent= "Get Directions"
+    element3.innerHTML=`<i class="fas fa-directions"></i>`+" "+"Get Directions"
    element3.classList.add("directions");
   element3.onclick= function(){
-      window.open("https://www.google.com/maps/dir/?api=1&travelmode=walking&layer=traffic&destination="+geomarker+"");
+      window.open("https://www.google.com/maps/dir/?api=1&travelmode=walking&layer=traffic&destination="+everymarker.position+"");
+
   }
    
     //gets rid of the last child in the mapdetails and writtendetails variables when another marker is selected.
@@ -175,9 +162,11 @@ new google.maps.event.addListener(everymarker, 'click', () => {
 //when the user clicks the map, the bottom panel and infowindow will dissapear.
 new google.maps.event.addListener(map, 'click', function() {
     infowindow.close();
+    $("#directionbutton").hide();
     $("#panel").hide();
     mapdetails.innerHTML="";
     writtendetails.innerHTML="";
+    map.setZoom(15);
   });
 
    
@@ -221,7 +210,7 @@ function showPhotos(place){
          let photos="None";
     if(place.photos){firstPhoto = place.photos[0];
     let photo = document.createElement('img');
-    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 300});
+    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 250});
    cartDiv.appendChild(photo);}else {
         console.log('showDetails failed: ' + status);
    } }

@@ -34,15 +34,34 @@
     height: null;
     width: 100%;
     bottom:0;
-    background-color: white;
     position: fixed;
     z-index: 1;
     overflow-x: hidden;
-    transition: all .2s ease-out;
+    text-align: center;
+      margin:30px;
+      
+      
 }
 
+#directionbutton{
+     height: null;
+    width: 100%;
+    top:0;
+    position: fixed;
+    z-index: 1;
+    overflow-x: hidden;
+     text-align: center;
+}
+
+#getdirections{
+    display: inline-block;
+  margin: 0 auto;
+  margin-top:110px;
+}
+
+
 .open{
-    height:250px;
+    height:300px;
 }
 
 
@@ -50,11 +69,84 @@
     height:null;
 }
 
-/* Get Directions Button*/
-.directions{
-    margin:auto;
-    width:100%;
-    font-size:50px;
-    margin-top:13%;
+.detail{
+    width:70%;
+    background-color: white;
+     box-shadow: -6px 6px 13px #888888;
+    border-radius:10px;
+    margin-top:1.5%;
+    padding:10px;
+     display: inline-block;
+  margin: 0 auto;
 }
 
+#placedetails{
+    border-radius: 10px;
+    padding:10px;
+    vertical-align: middle;
+}
+
+#mapwrittendetails{
+    text-align:left;
+    vertical-align: middle;
+}
+
+
+/* Get Directions Button*/
+.directions{
+    width:40%;
+    font-size:40px;
+    border-radius:40px;
+    background-color: #00b8f6;
+    color:white;
+    border:0
+  
+}
+
+.directions:hover{
+    background-color: white;
+    color:#00b8f6;
+    border:solid 1px #00b8f6;
+}
+
+@media (max-width:970px){
+    #mapwrittendetails{
+    text-align:center;
+}
+
+.detail{
+     width: 100%;
+  text-align: center;
+  border:none;
+  border-radius: 0px;
+  box-shadow: none;
+}
+
+#placedetails{
+   display: inline-block;
+  margin: 0 auto;
+}
+
+#panel{
+    background-color:white;
+    margin:0;
+}
+
+.open{
+    height:350px;
+}
+
+.directions{
+    font-size:30px;
+}
+}
+
+@media (max-width:700px){
+    .open{
+    height:250px;
+}
+.directions{
+    width:80%;
+    font-size:25px;
+}
+}
