@@ -25,7 +25,7 @@ $("#panel").hide()
 
 
     map = new google.maps.Map(document.getElementById("map-canvas"), {
-        zoom: 16,
+        zoom: 17,
         center: latmap
     })};
 
@@ -114,8 +114,13 @@ new google.maps.event.addListener(everymarker, 'click', () => {
     $("#panel").show();
     infoPane.classList.add("open");
      $("#directionbutton").show();
-  
-    
+     
+     
+     //tap to zoom out feature
+    // var clickscreen= document.getElementById("mouseclick")
+     //clickscreen.innerHTML=`<i class="fas fa-hand-pointer"></i>`+"Click to zoom out"
+     //clickscreen.classList.add("mouse");
+     //clickscreen.show();
     //the get directions button.
    
    
@@ -166,7 +171,7 @@ new google.maps.event.addListener(map, 'click', function() {
     $("#panel").hide();
     mapdetails.innerHTML="";
     writtendetails.innerHTML="";
-    map.setZoom(15);
+    map.setZoom(18);
   });
 
    

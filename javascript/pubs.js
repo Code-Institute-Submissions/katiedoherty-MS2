@@ -16,7 +16,7 @@ let writtendetails;
  new google.maps.event.addDomListener(window, 'load', initMap);
 function initMap() {
   GeoLoco();
-
+$("#panel").hide()
     writtendetails= document.getElementById("mapwrittendetails");
     infoPane = document.getElementById('panel');
     mapdetails=document.getElementById("placedetails")
@@ -25,7 +25,7 @@ function initMap() {
 
 
     map = new google.maps.Map(document.getElementById("map-canvas"), {
-        zoom: 16,
+        zoom: 17,
         center: latmap
     })};
 
@@ -37,7 +37,7 @@ function GeoLoco(){if (navigator.geolocation) {
             pos = {
                 lat: p.coords.latitude,
                 lng: p.coords.longitude,
-             
+                
             };
 
             //This function centers the map on the users location
@@ -63,7 +63,7 @@ map.setCenter(pos);
             console.log(
             infowindow.open(map, marker)
             );
-          getPubs(pos)
+          getpubs(pos)
         });
         
     }
@@ -73,7 +73,7 @@ map.setCenter(pos);
 
 
 //This function gathers the nearby restaurants to the users location.
-function getPubs(pos) {
+function getpubs(pos) {
     
      var pyrmont = new google.maps.LatLng(pos.lat, pos.lng);
     var request = {
@@ -113,18 +113,36 @@ new google.maps.event.addListener(everymarker, 'click', () => {
             map.panTo(everymarker.position);
     $("#panel").show();
     infoPane.classList.add("open");
-  
-    
+     $("#directionbutton").show();
+     
+     
+     //tap to zoom out feature
+    var clickscreen= document.getElementById("mouseclick")
+     clickscreen.innerHTML="Tap to"+`<br>`+"zoom out";
+     clickscreen.classList.add("mouse");
+     clickscreen.classList.add("circlebase");
+     clickscreen.onclick= function(){
+         infowindow.close();
+    $("#directionbutton").hide();
+    $("#panel").hide();
+    mapdetails.innerHTML="";
+    writtendetails.innerHTML="";
+         map.setZoom(16);
+     }
+     
     //the get directions button.
+   
+   
     var element3 = document.getElementById("getdirections");
     element3.type = "button";
     element3.name = "add";
     element3.value="Remove";
     element3.className="btn btn-primary btn-lg";
-    element3.textContent= "Get Directions"
+    element3.innerHTML=`<i class="fas fa-directions"></i>`+" "+"Get Directions"
    element3.classList.add("directions");
   element3.onclick= function(){
-      window.open("https://www.google.com/maps/dir/?api=1&travelmode=walking&layer=traffic&destination="+geomarker+"");
+      window.open("https://www.google.com/maps/dir/?api=1&travelmode=walking&layer=traffic&destination="+everymarker.position+"");
+
   }
    
     //gets rid of the last child in the mapdetails and writtendetails variables when another marker is selected.
@@ -158,10 +176,11 @@ new google.maps.event.addListener(everymarker, 'click', () => {
 //when the user clicks the map, the bottom panel and infowindow will dissapear.
 new google.maps.event.addListener(map, 'click', function() {
     infowindow.close();
+    $("#directionbutton").hide();
     $("#panel").hide();
     mapdetails.innerHTML="";
     writtendetails.innerHTML="";
-    map.setZoom(15);
+    map.setZoom(16);
   });
 
    
@@ -205,7 +224,7 @@ function showPhotos(place){
          let photos="None";
     if(place.photos){firstPhoto = place.photos[0];
     let photo = document.createElement('img');
-    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 300});
+    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 250});
    cartDiv.appendChild(photo);}else {
         console.log('showDetails failed: ' + status);
    } }
