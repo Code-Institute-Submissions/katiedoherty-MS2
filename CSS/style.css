@@ -14,7 +14,7 @@ background: black url(images/food.jpg) no-repeat;
 /*white box in the center*/
 .box{
     width:600px;
-    height:800px;
+    height:650px;
     padding:0;
     margin: auto;
     background:	white;
@@ -33,12 +33,13 @@ height:200px;
 margin:auto;
 background-position: center;
 background-repeat: no-repeat;
-margin-top:50px;
+margin-top:25px;
 }
 
 /*Find a Restaurant Near You Heading*/
 .title{
     text-align:center;
+    color:green;
 }
 
 
@@ -50,8 +51,18 @@ margin-top:50px;
 }
 
 .btn{
-    height:50px;
-    width:200px;
+     width:80%;
+    font-size:40px;
+    border-radius:40px;
+    background-color: #ec484d;
+    color:white;
+    border:0
+}
+
+.btn:hover{
+     background-color: white;
+    color:#ec484d;
+    border:solid 1px #ec484d;
 }
 
 @media (max-width:764px){

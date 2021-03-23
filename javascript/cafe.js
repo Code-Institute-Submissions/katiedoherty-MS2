@@ -1,5 +1,5 @@
+
 //GEOLOCATION API
-let marker;
 let map;
 let service;
 let pos;
@@ -8,13 +8,23 @@ let infowindow;
 let infopane;
 let mapdetails;
 let writtendetails;
+let request;
 
 
 
-//This is the function that renders the map.
+
+/************************This lods the geolocation API and Google Places API at the same time.**********************************************/
  new google.maps.event.addDomListener(window, 'load', initMap);
+
+ /******************************************This function renders the map.**********************************************/
 function initMap() {
-  GeoLoco();
+
+//need to call the geolocation and initMap function at the same time for them to load together.
+    GeoLoco();
+
+//This is to hide the bottom panel that contains more detailed information about the location
+    $("#panel").hide()
+
 
     writtendetails= document.getElementById("mapwrittendetails");
     infoPane = document.getElementById('panel');
@@ -24,108 +34,127 @@ function initMap() {
 
 
     map = new google.maps.Map(document.getElementById("map-canvas"), {
-        zoom: 16,
+        zoom: 17,
         center: latmap
     })};
 
-//This is the function that gets the users location
+
+
+/***************************************function to get the users location*********************************/
 function GeoLoco(){if (navigator.geolocation) {
 
         navigator.geolocation.getCurrentPosition(function(p) {
 
+            //users location
             pos = {
                 lat: p.coords.latitude,
                 lng: p.coords.longitude,
                 
             };
 
-            //This function centers the map on the users location
-map.setCenter(pos);
+             //This will center the map on the users location
+             map.setCenter(pos);
 
-//This variable creates the users location marker with the markers animation.
-            marker = new google.maps.Marker({
+            //This variable creates the users location marker with the markers animation.
+            var marker = new google.maps.Marker({
                 map,
                 draggable: false,
                 animation: google.maps.Animation.DROP,
-
                 position: pos
             });
 
 
             marker.setAnimation(google.maps.Animation.BOUNCE);
             
-            // These variables create the infowindow and content written in the function.
-
+            // infowindow with content written in the function.
             const contentString = `<p>You Are Here</p>`;
             infowindow = new google.maps.InfoWindow();
             infowindow.setContent('You are Here');
             console.log(
             infowindow.open(map, marker)
             );
-          getCafes(pos)
+            if(request==="none"){alert("There are no cafes near you")}else{getCafe(pos)};
+          // getpubs(pos)
         });
         
-    }
-}
+    }else{
+        alert("Sorry, we could not find your location. Please refresh the page and try again.");
+    };
+};
 
 
-         //This function gathers the nearby Cafes to the users location.
-function getCafes(pos) {
+/******************************Gathers nearby places to the users location*****************************************/
+function getCafe(pos) {
+    
+     //Gathers the data 
      var pyrmont = new google.maps.LatLng(pos.lat, pos.lng);
-    var request = {
+        request = {
         location: pyrmont,
         radius: 500,
         type: ["cafe"]
     };
 
-     
-                   //This calls on the Places api to search for places.
-    service = new google.maps.places.PlacesService(map);
-    //This function calls all the services that were searched and only returns the nearby Cafes.
-   service.nearbySearch(request, callback);  
     
-         }
+     //Calls all the services that were searched and only returns the nearby restaurants.
+     service = new google.maps.places.PlacesService(map);
+     service.nearbySearch(request, callback);
+    }
+
          
 
-//This function creates the markers for the nearby places to the user.
+/************************************Creates the markers on the map****************************************/
 function createMarker(place){
     
-     //this variable gets the latitude and longitude of the restaurants returned 
+     //Gathers the latitude and longitude of the places returned 
      geomarker = {
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng(),
             };
 
-            //this positions the markers on the co-ordinates returned.
-    var everymarker= new google.maps.Marker({
-        position: geomarker,
-        map: map});
-        //this will print the markers on the map.
-console.log(place);
+     //Creates the markers and positions them on the co-ordinates returned.
+     var everymarker= new google.maps.Marker({
+     position: geomarker,
+     map: map});
+     console.log(place);
 
-//create a click event for a person and get an infowindow and bottom panel of information returned.
-new google.maps.event.addListener(everymarker, 'click', () => {
-   map.setZoom(19);
-            map.panTo(everymarker.position);
-    $("#panel").show();
-    infoPane.classList.add("open");
-  
-    
+/***************************Infowindow, directions button and bottom panel returned when a marker is clicked*******************************/
+     new google.maps.event.addListener(everymarker, 'click', () => {
+     map.setZoom(19);
+     map.panTo(everymarker.position);
+     $("#panel").show();
+     infoPane.classList.add("open");
+     $("#directionbutton").show();
+     
+     
+     //This is the circle button that says "Tap to zoom out"
+     var clickscreen= document.getElementById("mouseclick")
+     clickscreen.innerHTML="Tap to"+`<br>`+"zoom out";
+     clickscreen.classList.add("mouse");
+     clickscreen.classList.add("circlebase");
+     clickscreen.onclick= function(){
+     infowindow.close();
+     $("#directionbutton").hide();
+     $("#panel").hide();
+     mapdetails.innerHTML="";
+     writtendetails.innerHTML="";
+     map.setZoom(16);
+     }
+     
     //the get directions button.
     var element3 = document.getElementById("getdirections");
     element3.type = "button";
     element3.name = "add";
     element3.value="Remove";
     element3.className="btn btn-primary btn-lg";
-    element3.textContent= "Get Directions"
-   element3.classList.add("directions");
-  element3.onclick= function(){
-      window.open("https://www.google.com/maps/dir/?api=1&travelmode=walking&layer=traffic&destination="+geomarker+"");
+    element3.innerHTML=`<i class="fas fa-directions"></i>`+" "+"Get Directions"
+    element3.classList.add("directions");
+    element3.onclick= function(){
+      window.open("https://www.google.com/maps/dir/?api=1&travelmode=walking&layer=traffic&destination="+everymarker.position+"");
+
   }
    
-    //gets rid of the last child in the mapdetails and writtendetails variables when another marker is selected.
-   
- if (mapdetails.firstChild) {
+    //Clears all the previous information when another marker is selected
+    if (mapdetails.firstChild) {
     mapdetails.removeChild(mapdetails.firstChild);
     }
     showPhotos(place);
@@ -134,37 +163,36 @@ new google.maps.event.addListener(everymarker, 'click', () => {
     }
     Details(place);
     
-
     
-    //returned information on the infowindow
-    let request = {
+    //requesting the information I want on the infowindow when a marker is clicked
+    let request2 = {
     placeId: place.place_id,
-    fields: ['name', 'rating',
-         'photos']
+    fields: ['name', 'rating']
     };
 
     
-    service.getDetails(request, (placeResult, status) => {
+    service.getDetails(request2, (placeResult, status) => {
     showDetails(placeResult, everymarker, status)
     
     });
 
 });
 
-//when the user clicks the map, the bottom panel and infowindow will dissapear.
+/******************When the map is clicked all the elements that were returned will be cleared from the map*************************/
 new google.maps.event.addListener(map, 'click', function() {
     infowindow.close();
+    $("#directionbutton").hide();
     $("#panel").hide();
     mapdetails.innerHTML="";
     writtendetails.innerHTML="";
-    map.setZoom(15);
+    map.setZoom(16);
   });
-
+};
    
 
-};
 
-//This is the details I want returned on the infowindow.
+
+/************************These are the details that show up on the infowindow when a marker is clicked**********************/
 function showDetails(placeResult, everymarker, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         let rating = "None";
@@ -172,7 +200,7 @@ function showDetails(placeResult, everymarker, status) {
         infowindow.setContent('<div><strong>' + placeResult.name +
           '</strong><br>' + 'Rating: ' + rating + '</div>');
         infowindow.open(everymarker.map, everymarker);
-      } else {
+         } else {
         console.log('showDetails failed: ' + status);
       }
     }
@@ -180,9 +208,9 @@ function showDetails(placeResult, everymarker, status) {
     
 
 
-//This function handles the results returned and the status of the data returned.
+/******************This function handles the results returned and the status of the data returned.********************/
 function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) 
     {
       createMarker(results[i]);
@@ -190,25 +218,26 @@ function callback(results, status) {
   }
 }
 
-//returns photos when marker is clicked.
+/************************************Responsible for returning the photos ***********************************/
 function showPhotos(place){
     var cartDiv = document.createElement('div');
     mapdetails.appendChild(cartDiv);
-  
-
- 
-// returns the information in the bottom panel bar that pops up when marker is clicked.
-         let photos="None";
+    let photos="None";
     if(place.photos){firstPhoto = place.photos[0];
     let photo = document.createElement('img');
-    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 300});
-   cartDiv.appendChild(photo);}else {
+    photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 250});
+    cartDiv.appendChild(photo);}else {
         console.log('showDetails failed: ' + status);
-   } }
+    let nophoto= document.createElement("div");
+    nophoto.innerHTML="No Photos";
+    nophoto.classList.add("nophoto");
+    cartDiv.appendChild(nophoto);
+   } 
+}
 
-   //returns all the written details in the bottom panel.
+/***********************************Returns all the written detials in the bottom panel ********************************/
    function Details(place){
-  var details = document.createElement('div');
+    var details = document.createElement('div');
     writtendetails.appendChild(details);
 
     let name = document.createElement('h1');
@@ -216,15 +245,22 @@ function showPhotos(place){
     details.appendChild(name);
     if (place.rating != null) {
     let rating = document.createElement('p');
-    rating.textContent = `Rating: ${place.rating} \u272e`;
+    rating.innerHTML = `Rating: ${place.rating}`+" "+`<i class="fas fa-star"></i>`;
     details.appendChild(rating);
     }
     if(place.vicinity){
-   let address = document.createElement('p');
+    let address = document.createElement('p');
     address.textContent = place.vicinity;
     details.appendChild(address);}
-    if(place.opening_now){
-        let openinghours=document.createElement("p");
-        openinghours.textContent = place.opening_now;
-    details.appendChild(openinghours);
-    }}
+        if(place.business_status==="OPERATIONAL"){
+            let openinghours=document.createElement("p");
+            openinghours.textContent = "We are open and ready to take your order";
+            details.appendChild(openinghours);
+        }else if(
+            place.business_status==="CLOSED_TEMPORARILY"){
+                let notopen=document.createElement("p");
+                notopen.textContent="Sorry, we are closed temporarily."
+                details.appendChild(notopen);
+        }
+     
+    }

@@ -1,3 +1,5 @@
+    
+    /*The map*/
     #map-canvas {
       height: 100%;
       margin:20px;
@@ -42,7 +44,7 @@
       
       
 }
-
+/*The panel that pops up at the top with the directions button*/
 #directionbutton{
      height: null;
     width: 100%;
@@ -53,13 +55,31 @@
      text-align: center;
 }
 
+/*The get directions button div*/
 #getdirections{
     display: inline-block;
   margin: 0 auto;
   margin-top:110px;
 }
 
+/* Dynamically added styling to the Get Directions Button*/
+.directions{
+    width:40%;
+    font-size:40px;
+    border-radius:40px;
+    background-color: #ec484d;
+    color:white;
+    border:0
+  
+}
 
+.directions:hover{
+    background-color: white;
+    color:#ec484d;
+    border:solid 1px #ec484d;
+}
+
+/*opening and closing the panel when markers are clicked*/
 .open{
     height:300px;
 }
@@ -69,6 +89,7 @@
     height:null;
 }
 
+/*the bottom panel styling*/
 .detail{
     width:70%;
     background-color: white;
@@ -80,6 +101,12 @@
   margin: 0 auto;
 }
 
+/*star icon in the bottom panel*/
+.fa-star{
+    color:orange;
+}
+
+/*The two divs that make up the bottom panel and divide the photos into one half and the details in the other*/
 #placedetails{
     border-radius: 10px;
     padding:10px;
@@ -88,26 +115,11 @@
 
 #mapwrittendetails{
     text-align:left;
-    vertical-align: middle;
+    vertical-align: middle;    
 }
 
 
-/* Get Directions Button*/
-.directions{
-    width:40%;
-    font-size:40px;
-    border-radius:40px;
-    background-color: #00b8f6;
-    color:white;
-    border:0
-  
-}
-
-.directions:hover{
-    background-color: white;
-    color:#00b8f6;
-    border:solid 1px #00b8f6;
-}
+/*styling for the tap to zoom out button*/
 
 .circlebase{
     border-radius:50%;
@@ -119,9 +131,9 @@
 
 .mouse{
     font-size:21px;
-    color:#00b8f6;
+    color:#ec484d;
     background-color: white;
-    border:solid 2px #00b8f6;
+    border:solid 2px #ec484d;
     padding:12px;
     padding-top:5px;
     width:110px;
@@ -132,12 +144,18 @@
 }
 
 .mouse:hover{
-    background-color: #00b8f6;
+    background-color: #ec484d;
     color:white;
-    border:solid 1px #00b8f6;
+    border:solid 1px #ec484d;
      cursor: pointer;
 }
 
+/*when there is no photo add this color to the background*/
+.nophoto{
+    background-color: grey;
+}
+
+/*styling for medium sized screens*/
 @media (max-width:970px){
     #mapwrittendetails{
     text-align:center;
@@ -168,8 +186,11 @@
 .directions{
     font-size:30px;
 }
+
+
 }
 
+/*styling for small screens*/
 @media (max-width:700px){
     .open{
     height:250px;
