@@ -4,11 +4,12 @@
 }
 /* Background image*/
 body{
-background: black url(images/food.jpg) no-repeat;
+background: #d5eaef url(images/food.jpg) no-repeat;
   height: 100vh; 
   background-position: center center;
   background-size: cover;
-  max-width:100%;             
+  max-width:100%;      
+      
 }
 
 /*white box in the center*/
@@ -26,6 +27,7 @@ background: black url(images/food.jpg) no-repeat;
     
 }
 /*all the contents in the box div*/
+
 .logo{
 background-image:url(images/logo1.png);
 width:400px;
@@ -73,6 +75,14 @@ margin-top:25px;
 margin-left:34%;
 }
 
+html, body {
+    height:100%;
+} 
+body{
+    background-color: #d6e9ee ;
+    background-size: auto 100%;
+    background-image: none;
+}
 
 }
 

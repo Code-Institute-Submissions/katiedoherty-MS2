@@ -25,22 +25,22 @@
 
 <div class="row bluebutton">
     <div class="col-md-12">
-      <a href="restaurant.html" > 
-<button type="button" class="btn btn-primary" id="food" >Restaurants</button></a> 
+      
+<button type="button" class="btn btn-primary" id="food" onclick="restaurantPage()" >Restaurants</button>
 </div>
 </div>
 
 <div class="row bluebutton">
     <div class="col-md-12">
-        <a href="cafe.html">
-<button type="button" class="btn btn-primary" id="cafes" >Cafes</button></a>
+   
+<button type="button" class="btn btn-primary" id="cafes" onclick="CafePage()">Cafes</button>
 </div>
 </div>
 
 <div class="row bluebutton">
     <div class="col-md-12">
-        <a href="pubs.html">
-<button type="button" class="btn btn-primary" id="pubs">Pubs</button></a>
+        
+<button type="button" class="btn btn-primary" id="pubs" onclick="pubPage()">Pubs</button>
 </div>
 </div>
     </div>
@@ -49,7 +49,19 @@
       <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfDJ2VZ2DHqYRtMyuUgOz1u052Vbwy_wI&libraries=places&callback=initMap">
 </script>
+<script>
+    function restaurantPage(){
+        document.location.href="restaurant.html"
+    }
 
+    function CafePage(){
+        document.location.href="cafe.html"
+    }
+
+    function pubPage(){
+        document.location.href="pubs.html"
+    }
+</script>
 
 </body>
 </html>

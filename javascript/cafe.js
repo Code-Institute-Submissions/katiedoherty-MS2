@@ -1,5 +1,6 @@
 
 //GEOLOCATION API
+
 let map;
 let service;
 let pos;
@@ -14,7 +15,7 @@ let request;
 
 
 /************************This lods the geolocation API and Google Places API at the same time.**********************************************/
- new google.maps.event.addDomListener(window, 'load', initMap);
+new google.maps.event.addDomListener(window, 'load', initMap);
 
  /******************************************This function renders the map.**********************************************/
 function initMap() {
@@ -23,20 +24,20 @@ function initMap() {
     GeoLoco();
 
 //This is to hide the bottom panel that contains more detailed information about the location
-    $("#panel").hide()
+    $("#panel").hide();
 
 
     writtendetails= document.getElementById("mapwrittendetails");
     infoPane = document.getElementById('panel');
-    mapdetails=document.getElementById("placedetails")
-    getdirections=document.getElementById("getdirections")
+    mapdetails=document.getElementById("placedetails");
+    getdirections=document.getElementById("getdirections");
     var latmap = new google.maps.LatLng(53.41291, -8.24389);
 
 
     map = new google.maps.Map(document.getElementById("map-canvas"), {
-        zoom: 17,
+        zoom: 15,
         center: latmap
-    })};
+    });}
 
 
 
@@ -57,7 +58,7 @@ function GeoLoco(){if (navigator.geolocation) {
 
             //This variable creates the users location marker with the markers animation.
             var marker = new google.maps.Marker({
-                map,
+
                 draggable: false,
                 animation: google.maps.Animation.DROP,
                 position: pos
@@ -67,20 +68,19 @@ function GeoLoco(){if (navigator.geolocation) {
             marker.setAnimation(google.maps.Animation.BOUNCE);
             
             // infowindow with content written in the function.
-            const contentString = `<p>You Are Here</p>`;
             infowindow = new google.maps.InfoWindow();
             infowindow.setContent('You are Here');
             console.log(
             infowindow.open(map, marker)
             );
-            if(request==="none"){alert("There are no cafes near you")}else{getCafe(pos)};
+            if(request==="none"){alert("There are no cafes near you")}else{getCafe(pos)}
           // getpubs(pos)
         });
         
     }else{
         alert("Sorry, we could not find your location. Please refresh the page and try again.");
-    };
-};
+    }
+}
 
 
 /******************************Gathers nearby places to the users location*****************************************/
@@ -127,7 +127,7 @@ function createMarker(place){
      
      
      //This is the circle button that says "Tap to zoom out"
-     var clickscreen= document.getElementById("mouseclick")
+     var clickscreen= document.getElementById("mouseclick");
      clickscreen.innerHTML="Tap to"+`<br>`+"zoom out";
      clickscreen.classList.add("mouse");
      clickscreen.classList.add("circlebase");
@@ -138,7 +138,7 @@ function createMarker(place){
      mapdetails.innerHTML="";
      writtendetails.innerHTML="";
      map.setZoom(16);
-     }
+     };
      
     //the get directions button.
     var element3 = document.getElementById("getdirections");
@@ -146,12 +146,12 @@ function createMarker(place){
     element3.name = "add";
     element3.value="Remove";
     element3.className="btn btn-primary btn-lg";
-    element3.innerHTML=`<i class="fas fa-directions"></i>`+" "+"Get Directions"
+    element3.innerHTML=`<i class="fas fa-directions"></i>`+" "+"Get Directions";
     element3.classList.add("directions");
     element3.onclick= function(){
       window.open("https://www.google.com/maps/dir/?api=1&travelmode=walking&layer=traffic&destination="+everymarker.position+"");
 
-  }
+  };
    
     //Clears all the previous information when another marker is selected
     if (mapdetails.firstChild) {
@@ -159,7 +159,7 @@ function createMarker(place){
     }
     showPhotos(place);
     if (writtendetails.firstChild){
-        writtendetails.removeChild(writtendetails.firstChild)
+        writtendetails.removeChild(writtendetails.firstChild);
     }
     Details(place);
     
@@ -172,7 +172,7 @@ function createMarker(place){
 
     
     service.getDetails(request2, (placeResult, status) => {
-    showDetails(placeResult, everymarker, status)
+    showDetails(placeResult, everymarker, status);
     
     });
 
@@ -187,7 +187,7 @@ new google.maps.event.addListener(map, 'click', function() {
     writtendetails.innerHTML="";
     map.setZoom(16);
   });
-};
+}
    
 
 
@@ -222,7 +222,6 @@ function callback(results, status) {
 function showPhotos(place){
     var cartDiv = document.createElement('div');
     mapdetails.appendChild(cartDiv);
-    let photos="None";
     if(place.photos){firstPhoto = place.photos[0];
     let photo = document.createElement('img');
     photo.src = firstPhoto.getUrl({maxWidth: 300, maxHeight: 250});
@@ -259,7 +258,7 @@ function showPhotos(place){
         }else if(
             place.business_status==="CLOSED_TEMPORARILY"){
                 let notopen=document.createElement("p");
-                notopen.textContent="Sorry, we are closed temporarily."
+                notopen.textContent="Sorry, we are closed temporarily.";
                 details.appendChild(notopen);
         }
      

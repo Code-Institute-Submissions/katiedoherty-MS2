@@ -15,7 +15,6 @@
     }
 
     .custom-map-control-button {
-  appearance: button;
   background-color: #fff;
   border: 0;
   border-radius: 2px;
@@ -33,7 +32,6 @@
 
 /*the panel that pops up when you click a marker*/
 #panel {
-    height: null;
     width: 100%;
     bottom:0;
     position: fixed;
@@ -46,7 +44,6 @@
 }
 /*The panel that pops up at the top with the directions button*/
 #directionbutton{
-     height: null;
     width: 100%;
     top:0;
     position: fixed;
@@ -86,7 +83,7 @@
 
 
 .closepanel{
-    height:null;
+    height:0;
 }
 
 /*the bottom panel styling*/
