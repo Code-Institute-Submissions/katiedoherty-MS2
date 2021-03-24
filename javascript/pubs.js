@@ -57,7 +57,7 @@ function GeoLoco(){if (navigator.geolocation) {
 
             //This variable creates the users location marker with the markers animation.
             var marker = new google.maps.Marker({
-
+                map,
                 draggable: false,
                 animation: google.maps.Animation.DROP,
                 position: pos
@@ -77,7 +77,7 @@ function GeoLoco(){if (navigator.geolocation) {
         });
         
     }else{
-        alert("Sorry, we could not find your location. Please refresh the page and try again.");
+        alert("Sorry, we could not find your location. Please refresh the page and click allow on the alert box so we can find your location.");
     }
 }
 
@@ -200,7 +200,7 @@ function showDetails(placeResult, everymarker, status) {
           '</strong><br>' + 'Rating: ' + rating + '</div>');
         infowindow.open(everymarker.map, everymarker);
          } else {
-        console.log('showDetails failed: ' + status);
+        infowindow.setContent("No Ratings");
       }
     }
 

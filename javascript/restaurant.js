@@ -7,6 +7,7 @@ let infopane;
 let mapdetails;
 let writtendetails;
 let request;
+let getdirections;
 
 
 
@@ -55,7 +56,7 @@ function GeoLoco(){if (navigator.geolocation) {
 
             //This variable creates the users location marker with the markers animation.
             var marker = new google.maps.Marker({
-
+                 map,
                 draggable: false,
                 animation: google.maps.Animation.DROP,
                 position: pos
@@ -70,12 +71,12 @@ function GeoLoco(){if (navigator.geolocation) {
             console.log(
             infowindow.open(map, marker)
             );
-            if(request==="none"){alert("There are no restaurants near you")}else{getrestaurant(pos)}
+            if(pos.lat){getrestaurant(pos)}else{alert("There are no restaurants near you")}
           
         });
         
-    }else{
-        alert("Sorry, we could not find your location. Please refresh the page and try again.");
+    }else {
+        alert("Sorry, we could not find your location. Please refresh the page and click allow on the alert box so we can find your location.");
     }
 }
 
@@ -197,9 +198,7 @@ function showDetails(placeResult, everymarker, status) {
         infowindow.setContent('<div><strong>' + placeResult.name +
           '</strong><br>' + 'Rating: ' + rating + '</div>');
         infowindow.open(everymarker.map, everymarker);
-         } else {
-        console.log('showDetails failed: ' + status);
-      }
+         } 
     }
 
     
@@ -242,6 +241,10 @@ function showPhotos(place){
     if (place.rating != null) {
     let rating = document.createElement('p');
     rating.innerHTML = `Rating: ${place.rating}`+" "+`<i class="fas fa-star"></i>`;
+    details.appendChild(rating);
+    }else{
+        let rating = document.createElement('p');
+         rating.innerHTML = "Rating:None";
     details.appendChild(rating);
     }
     if(place.vicinity){
