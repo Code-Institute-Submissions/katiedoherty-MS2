@@ -203,8 +203,30 @@ Git is used as version control software to commit and push code to the GitHub re
 
 ### Testing
 
-Find the full user test report here:  [Test Report](writtenfile/test_results.xlsx "AdobeXD: Mockups")
+Find the full user test report here:  [Test Report](https://1drv.ms/x/s!An9KFGSAnmM8gRAmCnDumJZhx5YH?e=mTnN10 "Excel")
 
 
+### Deployment
+I used GitHub pages to deploy my website.
 
+1. I created a repository on GitHub, added the template Code Institute provided and named it Doherty Printing.
+2. I pressed the Gitpod green button to commence the project.
+3. I added files to Git and used the git add . command
+4. Conducted regular commits.
+5. Used the git push command to push you project.
+6. I had all files in a folder and therefore had to move all the files out of that folder and push the files to GitHub because Github Pages was not recognising index.html as my root.
+7. Then I clicked on settings
+8. Scrolled down to GitHub Pages
+9. Clicked on master branch and my website was live.
 
+To run my code locally, users can clone this by clicking on the targeted repo, click 'clone or download' and 'download zip'.
+
+### Code References
+
+All the references to the code I used : [code](https://1drv.ms/w/s!An9KFGSAnmM8gQ5oS1F2eMYgh7PG?e=8QiHEv "Code")
+
+###Acknowledgements
+
+* Thank to my mentor for all the guidance.
+* Thanks to Tutor support for helping me solve a few issues.
+* Thanks to the slack community for helping me with the testing portion of this project.
