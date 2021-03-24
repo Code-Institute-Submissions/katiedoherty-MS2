@@ -72,7 +72,7 @@ function GeoLoco(){if (navigator.geolocation) {
             console.log(
             infowindow.open(map, marker)
             );
-            if(pos.lat){getCafe(pos)}else{alert("There are no cafes near you")}
+            if(pos.lat){getpubs(pos)}else{alert("There are no pubs near you")}
           
         });
         
